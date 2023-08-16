@@ -53,6 +53,7 @@ function createName() {
 
     let playerId;
     let playerRef;
+    let players = {};
     let playerElements = {};
 
     const gameContainer = document.querySelector(".game-container");
@@ -64,6 +65,19 @@ function createName() {
 
         allPlayersRef.on("value", (snapshot) => {
             //Fires when change occurs
+            players = snapshot.val() || {};
+            Object.keys(players).forEach((key) => {
+                const characterState = players[key];
+                let el = playerElements[key];
+                // Now update the DOM
+                el.querySelector(".Character_name").innerText = characterState.name;
+                el.querySelector(".Character_coins").innerText = characterState.coins;
+                el.setAttribute("data-color", characterState.color);
+                el.setAttribute("data-direction", characterState.direction);
+                const left = 16 * characterState.x + "px";
+                const top = 16 * characterState.y - 4 + "px";
+                el.style.transform = `translate3d(${left}, ${top}, 0)`;
+            })
         })
         allPlayersRef.on("child_added", (snapshot) => {
             //Fires when new node is added to the tree
