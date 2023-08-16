@@ -112,7 +112,7 @@ function createName() {
                 direction: "right",
                 color: randomFromArray(playerColors),
                 x: "3",
-                y: "3",
+                y: "10",
                 coins: 0
             })
 
