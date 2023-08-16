@@ -55,6 +55,8 @@ function createName() {
     let playerRef;
     let playerElements = {};
 
+    const gameContainer = document.querySelector(".game-container");
+
 
     function initGame() {
         const allPlayersRef = firebase.database().ref(`players`);
@@ -91,7 +93,7 @@ function createName() {
       const left = 16 * addedPlayer.x + "px";
       const top = 16 * addedPlayer.y - 4 + "px";
       characterElement.style.transform = `translate3d(${left}, ${top}, 0)`;
-      
+      gameContainer.appendChild(characterElement);
         })
     }
 
