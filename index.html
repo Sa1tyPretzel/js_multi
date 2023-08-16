@@ -1,0 +1,42 @@
+<html>
+  <head>
+    <title>Multiplayer Demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css" type="text/css">
+  </head>
+  <body>
+
+    <div class="game-container">
+    </div>
+    <!-- <div class="player-info">
+      <div>
+        <label for="player-name">Your Name</label>
+        <input id="player-name" maxlength="10" type="text" />
+      </div>
+      <div>
+        <button id="player-color">Change Color</button>
+      </div>
+    </div> -->
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script>
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyA2uW16-4glBy873zuNtsGaaEtWtlK7vSk",
+          authDomain: "js-multi-5af50.firebaseapp.com",
+          databaseURL: "https://js-multi-5af50-default-rtdb.asia-southeast1.firebasedatabase.app",
+          projectId: "js-multi-5af50",
+          storageBucket: "js-multi-5af50.appspot.com",
+          messagingSenderId: "286812188949",
+          appId: "1:286812188949:web:8d4831f288bbcfafd8b91c"
+        };
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
