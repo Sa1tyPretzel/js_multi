@@ -53,6 +53,47 @@ function createName() {
 
     let playerId;
     let playerRef;
+    let playerElements = {};
+
+
+    function initGame() {
+        const allPlayersRef = firebase.database().ref(`players`);
+        const allCoinsRef = firebase.database().ref(`coins`);
+
+        allPlayersRef.on("value", (snapshot) => {
+            //Fires when change occurs
+        })
+        allPlayersRef.on("child_added", (snapshot) => {
+            //Fires when new node is added to the tree
+            const addedPlayer = snapshot.val();
+            const characterElement = document.createElement("div");
+            characterElement.classList.add("Character", "grid-cell");
+            if (addedPlayer.id == playerId) {
+                characterElement.classList.add("you");
+            }
+            characterElement.innerHTML = (`
+        <div class="Character_shadow grid-cell"></div>
+        <div class="Character_sprite grid-cell"></div>
+        <div class="Character_name-container">
+          <span class="Character_name"></span>
+          <span class="Character_coins">0</span>
+        </div>
+        <div class="Character_you-arrow"></div>
+      `);
+      playerElements[addedPlayer.id] = characterElement;
+      
+      
+      //Fill in some initial state
+      characterElement.querySelector(".Character_name").innerText = addedPlayer.name;
+      characterElement.querySelector(".Character_coins").innerText = addedPlayer.coins;
+      characterElement.setAttribute("data-color", addedPlayer.color);
+      characterElement.setAttribute("data-direction", addedPlayer.direction);
+      const left = 16 * addedPlayer.x + "px";
+      const top = 16 * addedPlayer.y - 4 + "px";
+      characterElement.style.transform = `translate3d(${left}, ${top}, 0)`;
+      
+        })
+    }
 
     firebase.auth().onAuthStateChanged((user) => {
         console.log(user)
@@ -76,7 +117,8 @@ function createName() {
             //Remove from Firebase when disconnect
             playerRef.onDisconnect().remove();
 
-            
+            //Begin the game now that we are signed in
+            initGame();
         } else {
             //logged out
         }
