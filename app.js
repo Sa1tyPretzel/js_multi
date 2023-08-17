@@ -58,8 +58,32 @@ function createName() {
 
     const gameContainer = document.querySelector(".game-container");
 
+    function handleArrowPress(xChange = 0, yChange = 0) {
+        const newX = players[playerId].x + xChange;
+        const newY = players[playerId].y + yChange;
+        if (true) {
+            //move to the next space
+            players[playerId].x = newX;
+            players[playerId].y = newY;
+            if (xChange === 1 ) {
+                players[playerId].direction = "right";
+            }
+            if (xChange === -1) {
+                players[playerId].direction = "left";
+            }
+            playerRef.set(players[playerId]);
+        }
+    }
+
 
     function initGame() {
+
+        new KeyPressListener("ArrowUp", () => handleArrowPress(0, -1))
+        new KeyPressListener("ArrowDown", () => handleArrowPress(0, 1))
+        new KeyPressListener("ArrowLeft", () => handleArrowPress(-1, 0))
+        new KeyPressListener("ArrowRight", () => handleArrowPress(1, 0))
+
+
         const allPlayersRef = firebase.database().ref(`players`);
         const allCoinsRef = firebase.database().ref(`coins`);
 
